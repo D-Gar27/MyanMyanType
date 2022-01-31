@@ -19,7 +19,7 @@ const Layout = ({ children }: Children) => {
   return (
     <>
       <div
-        style={{ background: `${theme.dark}` }}
+        style={{ backgroundColor: theme?.dark }}
         className="w-screen min-h-screen"
       >
         <div className="w-full lg:max-w-[1224px] mx-auto px-4">{children}</div>
