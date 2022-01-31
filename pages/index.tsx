@@ -37,8 +37,10 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const themeName = localStorage.getItem('lath');
-    const theme = Themes.find((theme) => theme.name === themeName);
-    dispatch(restoreLastTheme(theme?.colours));
+    if (themeName) {
+      const theme = Themes.find((theme) => theme.name === themeName);
+      dispatch(restoreLastTheme(theme?.colours));
+    }
   }, [dispatch]);
   return (
     <>
