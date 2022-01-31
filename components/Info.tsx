@@ -55,8 +55,8 @@ const Info = () => {
           </h4>
           <ul style={{ color: `${theme.primary}` }}>
             <li>
-              WPM - caculated amount of words that user correctly typed within a
-              minute
+              WPM - caculated amount of words that user correctly can type
+              within a minute
             </li>
             <li>accuracy - percentage of correctly typed words</li>
             <li>correct - total amount of words that user correctly typed</li>
