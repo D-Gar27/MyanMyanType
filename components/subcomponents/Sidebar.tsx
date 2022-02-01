@@ -31,7 +31,7 @@ const Sidebar = () => {
   return (
     <aside
       style={{ background: `${theme.highlight}` }}
-      className="fixed bottom-0 right-0 sm:w-20 sm:h-[15rem] rounded-tl-xl rounded-tr-xl sm:rounded-tr-none w-screen h-[4rem]"
+      className="fixed z-10 bottom-0 right-0 sm:w-20 sm:h-[15rem] rounded-tl-xl rounded-tr-xl sm:rounded-tr-none w-screen h-[4rem]"
     >
       <ul className="h-full w-full flex sm:flex-col justify-around items-center">
         <li onClick={() => setDisplay('game')}>
