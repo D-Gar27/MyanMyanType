@@ -49,12 +49,14 @@ const Setting = () => {
         <div className="flex sm:gap-4 flex-col sm:flex-row mt-6 justify-between items-center">
           <div>
             <label htmlFor="level" className="setting-label">
-              Level
+              {setting.webLang === 'eng' ? 'Level' : 'အဆင့်'}
             </label>
             <p className="text-white">
-              normal is default test level (easy words). master level includes
-              hard words, numbers and fails if your accuracy if below 95% after
-              5 words typed but only total of 200 words
+              {setting.webLang === 'eng'
+                ? ` normal is default-test level (easy words). the master level
+              includes hard words, numbers and it fails if your accuracy below
+              95% after 5 words typed (200 words)`
+                : 'ပုံမှန် default-test အဆင့်တွင် (အလွယ်စကားလုံးများ) ပါ၀င်ပါတယ်။ မာစတာအဆင့်တွင် ခက်ခဲသောစကားလုံးများ၊ နံပါတ်များ အပြင် စာလုံး 5 လုံးရိုက်ပြီးနောက် သင်၏တိကျမှု 95% အောက်တွင်ရှိနေပါက ရှုံးပါသည်။'}
             </p>
           </div>
           <div className="flex items-center gap-4 mt-6 sm:mt-0">
@@ -78,19 +80,21 @@ const Setting = () => {
                 }`,
               }}
             >
-              {setting.webLang === 'eng' ? 'master' : 'ဆရာ'}
+              {setting.webLang === 'eng' ? 'master' : 'မာစတာ'}
             </button>
           </div>
         </div>
         <div className="flex sm:gap-4 flex-col sm:flex-row mt-6 justify-between items-center">
           <div>
             <label htmlFor="level" className="setting-label">
-              Website Language
+              {setting.webLang === 'eng'
+                ? 'Website Language'
+                : 'ဝဘ်ဆိုဒ်ဘာသာစကား'}
             </label>
             <p className="text-white">
-              default language that MyanMyanType uses is English. You can change
-              to Burmese if you want to but is&apos;s not available for all
-              pages.
+              {setting.webLang === 'eng'
+                ? "default language that MyanMyanType uses is English. You can change to Burmese if you want to but it's not available for all pages"
+                : 'MyanMyanType အသုံးပြုသည့် မူရင်းဘာသာစကားမှာ အင်္ဂလိပ်ဖြစ်သည်။ လိုချင်ပါက မြန်မာဘာသာသို့ ပြောင်းနိုင်သော်လည်း စာမျက်နှာအားလုံးအတွက် မရနိုင်ပါ'}
             </p>
           </div>
           <div className="flex items-center gap-4 mt-6 sm:mt-0">
@@ -121,11 +125,12 @@ const Setting = () => {
         <div className="flex sm:gap-4 flex-col sm:flex-row mt-6 justify-between items-center">
           <div>
             <label htmlFor="level" className="setting-label">
-              Add Numbers
+              {setting.webLang === 'eng' ? 'Add Numbers' : 'နံပါတ်များထည့်ပါ'}
             </label>
             <p className="text-white">
-              enable to add numbers to your test (master level already indluded
-              numbers)
+              {setting.webLang === 'eng'
+                ? ' enable to add numbers to your test (master level already indcluded numbers)'
+                : 'စမ်းသပ်မှုတွင် နံပါတ်များထည့်ရန် ဖွင့်ပါ (မာစတာအဆင့်တွင် နံပါတ်များပါပြီးသား ဖြစ်ပါတယ်)'}
             </p>
           </div>
           <div className="flex items-center gap-4 mt-6 sm:mt-0">
@@ -138,7 +143,7 @@ const Setting = () => {
                 }`,
               }}
             >
-              disable
+              {setting.webLang === 'eng' ? 'disable' : 'ပိတ်ပါ'}
             </button>
             <button
               onClick={() => setSetting({ ...setting, number: true })}
@@ -149,7 +154,7 @@ const Setting = () => {
                 }`,
               }}
             >
-              enable
+              {setting.webLang === 'eng' ? 'enable' : 'ဖွင့်ပါ'}
             </button>
           </div>
         </div>

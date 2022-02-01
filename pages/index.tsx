@@ -46,6 +46,25 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>MyanMyanType - Burmese Typing Speed Test</title>
+        <meta
+          name="description"
+          content="With MyanMyanType you can practise your burmese typing speed to the next level"
+        />
+        <meta
+          name="keywords"
+          content="myanmyantype, burmese, typing, burmese typing,burmese typing test"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://myanmyantype.vercel.app" />
+        <meta
+          property="og:title"
+          content="MyanMyanType - Burmese Typing Speed Test"
+        />
+        <meta
+          name="google-site-verification"
+          content="ULdBtB-p9nC0fR-b5ohw1KhLkdAsCkqUFgOaNxpWm3A"
+        />
+        <meta property="og:image" content="/images/ogImg.png" />
       </Head>
       <Navbar />
       <Sidebar />

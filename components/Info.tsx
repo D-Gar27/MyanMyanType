@@ -2,17 +2,19 @@ import { useSelector } from 'react-redux';
 import { HiInformationCircle } from 'react-icons/hi';
 import Link from 'next/link';
 
-interface ThemeState {
+interface State {
   theme: {
     primary: string;
     highlight: string;
     lightDark: string;
   };
-  setting: {};
+  setting: {
+    webLang: 'eng' | 'myan';
+  };
 }
 
 const Info = () => {
-  const { theme, setting } = useSelector((state: ThemeState) => state);
+  const { theme, setting } = useSelector((state: State) => state);
 
   return (
     <section className="mt-14 pb-20">
@@ -25,12 +27,14 @@ const Info = () => {
             <span className="text-[1.75rem]">
               <HiInformationCircle />
             </span>
-            About MyanMyanType
+            {setting.webLang === 'eng'
+              ? 'About MyanMyanType'
+              : 'MyanMyanType အကြောင်း'}
           </h3>
           <p style={{ color: `${theme.primary}` }}>
-            MyanMyanType is a simple typing test for Burmese language, inluding
-            various test modes and lots of themes. If you want to practise your
-            Burmese typing skills, MyanMyanType is your best friend.
+            {setting.webLang === 'eng'
+              ? 'MyanMyanType is a simple typing test for the Burmese language, including various test modes and lots of themes. If you want to practise your Burmese typing skills, MyanMyanType is your best friend.'
+              : 'MyanMyanType သည် အမျိုးမျိုးသော စမ်းသပ်မုဒ်များနှင့် အပြင်အဆင်များစွာ အပါအဝင် မြန်မာဘာသာစကားအတွက် ရိုးရှင်းသော စာရိုက်စမ်းသပ်မှုတစ်ခုဖြစ်သည်။ မြန်မာစာရိုက်စွမ်းရည်ကို လေ့ကျင့်ချင်ရင် MyanMyanType က မင်းရဲ့အကောင်းဆုံးသူငယ်ချင်းပါ။'}
           </p>
         </div>
         <div>
@@ -38,12 +42,12 @@ const Info = () => {
             className="text-[1.1rem] flex items-center gap-2"
             style={{ color: `${theme.highlight}e6` }}
           >
-            word set
+            {setting.webLang === 'eng' ? 'word set' : 'စကားလုံးများ'}
           </h4>
           <p style={{ color: `${theme.primary}` }}>
-            MyanMyanType uses the most common and easiest 250 words in the
-            Burmese language to create tests by default. You can change your
-            preferences in setting.
+            {setting.webLang === 'eng'
+              ? 'MyanMyanType uses the most common and easiest 250 words in the Burmese language to create tests by default. You can change your preferences in the setting.'
+              : 'MyanMyanType သည် ပုံမှန်အားဖြင့် စမ်းသပ်ခြင်းများဖန်တီးရန် မြန်မာဘာသာစကားတွင် အသုံးအများဆုံးနှင့် အလွယ်ကူဆုံး စကားလုံး 250 ကို အသုံးပြုပါသည်။ ဆက်တင်တွင် သင့်စိတ်ကြိုက်များကို ပြောင်းလဲနိုင်သည်။'}
           </p>
         </div>
         <div>
@@ -51,17 +55,32 @@ const Info = () => {
             className="text-[1.1rem] flex items-center gap-2"
             style={{ color: `${theme.highlight}e6` }}
           >
-            stats
+            {setting.webLang === 'eng' ? 'stats' : 'ကိန်းဂဏန်းများ'}
           </h4>
           <ul style={{ color: `${theme.primary}` }}>
             <li>
-              WPM - caculated amount of words that user correctly can type
-              within a minute
+              WPM -{' '}
+              {setting.webLang === 'eng'
+                ? 'calculated amount of words that user correctly can type within a minute'
+                : 'အသုံးပြုသူ တစ်မိနစ်အတွင်း မှန်ကန်စွာရိုက်နိုင်သော စကားလုံးပမာဏကို တွက်ချက်သည်'}
             </li>
-            <li>accuracy - percentage of correctly typed words</li>
-            <li>correct - total amount of words that user correctly typed</li>
             <li>
-              incorrect - total amount of words that user incorrectly typed
+              accuracy -{' '}
+              {setting.webLang === 'eng'
+                ? 'percentage of correctly typed words'
+                : 'မှန်ကန်စွာရိုက်ထားသော စကားလုံးများ၏ ရာခိုင်နှုန်း'}
+            </li>
+            <li>
+              correct -{' '}
+              {setting.webLang === 'eng'
+                ? 'the total amount of words that user correctly typed'
+                : 'အသုံးပြုသူ မှန်ကန်စွာ ရိုက်ထည့်သော စကားလုံး စုစုပေါင်း ပမာဏ'}
+            </li>
+            <li>
+              incorrect -{' '}
+              {setting.webLang === 'eng'
+                ? 'the total amount of words that user incorrectly typed'
+                : 'အသုံးပြုသူ မှားယွင်းစွာ ရိုက်ထည့်သော စကားလုံး စုစုပေါင်း ပမာဏ'}
             </li>
           </ul>
         </div>
@@ -72,7 +91,7 @@ const Info = () => {
       >
         <li>
           <a
-            href=""
+            href="mailto:htetwinkhant999@gmail.com?subject=bug report&body=I found a bug on "
             className="flex hover:brightness-150 duration-200 ease-out transition-all"
           >
             bug report
@@ -80,24 +99,21 @@ const Info = () => {
         </li>
         <li>
           <a
-            href=""
+            href="mailto:htetwinkhant999@gmail.com?subject=feedback"
             className="hover:brightness-150 duration-200 ease-out transition-all"
           >
             feedback
           </a>
         </li>
         <li>
-          <Link href="/how-to-play" passHref>
-            <a className="flex hover:brightness-150 duration-200 ease-out transition-all">
-              how to play
-            </a>
-          </Link>
+          {/* <Link href="/how-to-play" passHref> */}
+          <a className="flex hover:brightness-150 duration-200 ease-out transition-all">
+            how to play
+          </a>
+          {/* </Link> */}
         </li>
         <li>
-          <a
-            href=""
-            className="hover:brightness-150 duration-200 ease-out transition-all"
-          >
+          <a className="hover:brightness-150 duration-200 ease-out transition-all">
             keyboards
           </a>
         </li>
