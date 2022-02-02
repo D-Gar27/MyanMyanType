@@ -52,7 +52,7 @@ const Home: NextPage = () => {
         />
         <meta
           name="keywords"
-          content="myanmyantype, burmese, typing, burmese typing,burmese typing test"
+          content="myanmyantype, burmese typing,burmese typing test,burmese typing speed test,myanmar typing test, myanmar typing speed, myanmar typing app, myanmar typing, myan myan type "
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://myanmyantype.vercel.app" />
