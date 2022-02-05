@@ -17,7 +17,7 @@ interface State {
 }
 
 const NotFound = () => {
-  const { theme, setting } = useSelector((state: State) => state);
+  const { theme } = useSelector((state: State) => state);
 
   return (
     <>
@@ -40,7 +40,6 @@ const NotFound = () => {
           </button>
         </Link>
       </main>
-      {/* <Footer /> */}
     </>
   );
 };

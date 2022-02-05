@@ -8,13 +8,16 @@ interface ThemeState {
     primary: string;
     highlight: string;
   };
+  setting: {
+    webLang: 'eng' | 'myan';
+  };
 }
 
 const TimeOptions = [30, 60, 90, 120];
 const AddOptions = [85, 90, 95];
 
 const Filter = () => {
-  const theme = useSelector((state: ThemeState) => state.theme);
+  const { theme, setting } = useSelector((state: ThemeState) => state);
 
   return (
     <section
@@ -23,13 +26,13 @@ const Filter = () => {
     >
       <div className="flex items-center lg:justify-center justify-between gap-2 flex-1 w-full max-w-[20rem]">
         <label htmlFor="time" className="text-lg font-semibold">
-          Seconds
+          {setting.webLang === 'eng' ? 'Seconds' : 'စက္ကန့်'}
         </label>
         <TimeSelect options={TimeOptions} />
       </div>
       <div className="flex items-center lg:justify-center justify-between gap-2 flex-1 w-full max-w-[20rem]">
         <label htmlFor="add" className="text-lg font-semibold">
-          Accuracy
+          {setting.webLang === 'eng' ? 'Accuracy' : 'တိကျမှု'}
         </label>
         <Select options={AddOptions} />
       </div>

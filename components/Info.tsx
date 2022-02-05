@@ -118,11 +118,6 @@ const Info = () => {
             </a>
             {/* </Link> */}
           </li>
-          <li>
-            <a className="hover:brightness-150 duration-200 ease-out transition-all">
-              keyboards
-            </a>
-          </li>
         </ul>
         <p style={{ color: `${theme.highlight}` }} className="mt-6">
           Built with love by{' '}
