@@ -67,7 +67,7 @@ const Info = () => {
               <li>
                 WPM -{' '}
                 {setting.webLang === 'eng'
-                  ? 'calculated amount of words that user correctly can type within a minute'
+                  ? 'calculated amount of words that user correctly typed within a minute'
                   : 'အသုံးပြုသူ တစ်မိနစ်အတွင်း မှန်ကန်စွာရိုက်နိုင်သော စကားလုံးပမာဏကို တွက်ချက်သည်'}
               </li>
               <li>

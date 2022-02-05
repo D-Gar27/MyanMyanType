@@ -182,9 +182,9 @@ const TypeArea = () => {
   useEffect(() => {
     if (game.started && !game.finished) {
       const total = correctWords.length;
-      const WPM = Math.floor(correctWords.length / (game.time / 60));
       const correct = correctWords.filter((words) => words === true).length;
       const incorrect = correctWords.filter((words) => words === false).length;
+      const WPM = Math.floor(correct / (game.time / 60));
       const accuracy = Math.floor(((total - incorrect) / total) * 100);
       setResult({ total, WPM, correct, incorrect, accuracy });
       if (
