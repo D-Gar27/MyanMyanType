@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +13,7 @@ import Sidebar from '../components/subcomponents/Sidebar';
 import TypeArea from '../components/TypeArea';
 import { changeSetting } from '../redux/settingSlice';
 import { restoreLastTheme } from '../redux/themeSlice';
+import { restoreUser } from '../redux/userSlice';
 import { Themes } from '../Theme';
 
 interface State {
@@ -27,21 +29,41 @@ const Home: NextPage = () => {
   } = useSelector((state: State) => state);
 
   const dispatch = useDispatch();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const settingValue = localStorage.getItem('MyanMyanTypeSetting');
+    const themeName = localStorage.getItem('lath');
     if (settingValue) {
       dispatch(changeSetting(JSON.parse(settingValue)));
     }
-  }, [dispatch]);
-
-  useEffect(() => {
-    const themeName = localStorage.getItem('lath');
     if (themeName) {
       const theme = Themes.find((theme) => theme.name === themeName);
       dispatch(restoreLastTheme(theme?.colours));
     }
+    if (session) {
+      dispatch(
+        restoreUser({
+          username: session.user?.name,
+          userImg: session.user?.image,
+        })
+      );
+      return;
+    }
+    const username = localStorage.getItem('MyanMyanTypeUsername');
+    if (!session && username) {
+      dispatch(restoreUser({ username, userImg: '' }));
+      return;
+    }
+    if (!username) {
+      (function () {
+        const guest = 'Guest_' + (Math.random() + 1).toString(36).substring(5);
+        localStorage.setItem('MyanMyanTypeUsername', guest);
+        dispatch(restoreUser({ username: guest, userImg: '' }));
+      })();
+    }
   }, [dispatch]);
+
   return (
     <>
       <Head>
@@ -65,6 +87,23 @@ const Home: NextPage = () => {
           content="ULdBtB-p9nC0fR-b5ohw1KhLkdAsCkqUFgOaNxpWm3A"
         />
         <meta property="og:image" content="/images/ogImg.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
       </Head>
       <Navbar />
       <Sidebar />

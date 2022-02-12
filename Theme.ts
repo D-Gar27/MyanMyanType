@@ -107,4 +107,22 @@ export const Themes = [
       lightDark: '#323232',
     },
   },
+  {
+    name: 'Violet',
+    colours: {
+      dark: '#10002b',
+      primary: '#9d4edd',
+      highlight: '#7b2cbf',
+      lightDark: '#240046',
+    },
+  },
+  {
+    name: 'Turqoise',
+    colours: {
+      dark: '#023e8a',
+      primary: '#90e0ef',
+      highlight: '#48cae4',
+      lightDark: '#0077b6',
+    },
+  },
 ];

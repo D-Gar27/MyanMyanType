@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
 import { HiInformationCircle } from 'react-icons/hi';
-import Link from 'next/link';
 import Head from 'next/head';
+import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
 
 interface State {
   theme: {
@@ -16,6 +17,7 @@ interface State {
 
 const Info = () => {
   const { theme, setting } = useSelector((state: State) => state);
+  const { data: session } = useSession();
 
   return (
     <>
@@ -97,7 +99,7 @@ const Info = () => {
         >
           <li>
             <a
-              href="mailto:htetwinkhant999@gmail.com?subject=bug report&body=I found a bug on "
+              href="mailto:htetwinkhant999@gmail.com?subject=Bug&body=There is a bug..."
               className="flex hover:brightness-150 duration-200 ease-out transition-all"
             >
               bug report
@@ -105,19 +107,18 @@ const Info = () => {
           </li>
           <li>
             <a
-              href="mailto:htetwinkhant999@gmail.com?subject=feedback"
+              href="mailto:htetwinkhant999@gmail.com?subject=Feedback"
               className="hover:brightness-150 duration-200 ease-out transition-all"
             >
               feedback
             </a>
           </li>
-          <li>
-            {/* <Link href="/how-to-play" passHref> */}
-            <a className="flex hover:brightness-150 duration-200 ease-out transition-all">
-              how to play
-            </a>
-            {/* </Link> */}
-          </li>
+          {!session && (
+            <Link href={'/sign-in'} passHref>
+              <button>sign in</button>
+            </Link>
+          )}
+          {session && <button onClick={() => signOut()}>sign out</button>}
         </ul>
         <p style={{ color: `${theme.highlight}` }} className="mt-6">
           Built with love by{' '}

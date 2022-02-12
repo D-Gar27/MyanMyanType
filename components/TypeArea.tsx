@@ -12,6 +12,8 @@ import {
 } from '../redux/gameSlice';
 import { normal, master, numbers } from '../words/burmese';
 import { BsCheck } from 'react-icons/bs';
+import { addToLeaderBoard } from '../redux/userSlice';
+import { useSession } from 'next-auth/react';
 
 interface WordProps {
   active: boolean;
@@ -94,12 +96,17 @@ interface State {
     level: 'normal' | 'master';
     number: boolean;
   };
+  user: {
+    username: string;
+    userImg: string;
+  };
 }
 
 const WordCom = React.memo(Word);
 
 const TypeArea = () => {
-  const { theme, game, setting } = useSelector((state: State) => state);
+  const { theme, game, setting, user } = useSelector((state: State) => state);
+  const { data: session } = useSession();
   const [userInput, setUserInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
@@ -115,6 +122,7 @@ const TypeArea = () => {
     accuracy: number | any;
   } | null>(null);
 
+  const dispatch = useDispatch();
   const setTextToTextData = () => {
     if (setting.level === 'normal' && !setting.number) {
       return normal();
@@ -127,7 +135,6 @@ const TypeArea = () => {
       return master();
     }
   };
-
   useEffect(() => {
     setLoading(false);
     setTextData(setTextToTextData());
@@ -141,8 +148,6 @@ const TypeArea = () => {
       setUserInput('');
     }
   }, [game.restart]);
-
-  const dispatch = useDispatch();
 
   const restartTheGame = () => {
     dispatch(restartGame(''));
@@ -201,10 +206,24 @@ const TypeArea = () => {
     }
   }, [game, correctWords, dispatch, setting.level]);
 
+  useEffect(() => {
+    if (game.finished) {
+      dispatch(
+        addToLeaderBoard({
+          username: user.username,
+          wpm: result?.WPM,
+          userImg: user.userImg,
+        })
+      );
+    }
+  }, [game.finished, dispatch, result, user]);
+
   return (
     <section className="w-full relative sm:mt-20 mt-12">
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-3xl text-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+          Loading...
+        </p>
       ) : (
         <div className="w-full h-[17rem] flex flex-col items-center justify-center gap-8">
           <div
@@ -233,12 +252,12 @@ const TypeArea = () => {
               </p>
             )}
             {game.finished && (
-              <div className="w-full h-full flex items-center justify-around flex-col md:flex-row">
+              <div className="w-full h-full flex items-center justify-around flex-col md:flex-row relative">
                 <p className="md:text-[3rem] text-3xl flex-1 flex items-center justify-center gap-4">
                   {result?.WPM} WPM
                 </p>
                 <p
-                  className="flex-1 flex items-center md:justify-center md:gap-4 justify-between w-full mx-auto max-w-[10rem] md:max-w-none brightness-125"
+                  className="flex-1 flex items-center md:justify-center md:gap-4 justify-between w-full mx-auto max-w-[20rem] md:max-w-none brightness-125"
                   style={{ color: theme.highlight }}
                 >
                   Accuracy{' '}
@@ -247,7 +266,7 @@ const TypeArea = () => {
                   </span>
                 </p>
                 <p
-                  className="flex-1 flex items-center md:justify-center md:gap-4 justify-between w-full mx-auto max-w-[10rem] md:max-w-none brightness-125"
+                  className="flex-1 flex items-center md:justify-center md:gap-4 justify-between w-full mx-auto max-w-[20rem] md:max-w-none brightness-125"
                   style={{ color: theme.highlight }}
                 >
                   Correct{' '}
@@ -259,7 +278,7 @@ const TypeArea = () => {
                   </span>
                 </p>
                 <p
-                  className="flex-1 flex items-center md:justify-center md:gap-4 justify-between w-full mx-auto max-w-[10rem] md:max-w-none brightness-125"
+                  className="flex-1 flex items-center md:justify-center md:gap-4 justify-between w-full mx-auto max-w-[20rem] md:max-w-none brightness-125"
                   style={{ color: theme.highlight }}
                 >
                   Incorrect{' '}
@@ -268,6 +287,18 @@ const TypeArea = () => {
                     style={{ color: theme.incorrect }}
                   >
                     {result?.incorrect} <RiCloseFill />
+                  </span>
+                </p>
+                <p
+                  className="flex md:justify-center md:gap-4 justify-between w-full max-w-[20rem] md:max-w-none brightness-125 md:absolute bottom-0"
+                  style={{ color: theme.primary }}
+                >
+                  User
+                  <span
+                    className="flex items-center gap-1"
+                    style={{ color: theme.primary }}
+                  >
+                    {user.username}
                   </span>
                 </p>
               </div>
