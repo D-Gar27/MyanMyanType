@@ -8,6 +8,7 @@ export default NextAuth({
       clientSecret: process.env.GG_SECRET,
     }),
   ],
+  secret: process.env.SECRET,
   callbacks: {
     redirect: async ({ url, baseUrl }) => {
       return baseUrl;
