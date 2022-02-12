@@ -41,6 +41,8 @@ const Home: NextPage = () => {
       const theme = Themes.find((theme) => theme.name === themeName);
       dispatch(restoreLastTheme(theme?.colours));
     }
+  }, [dispatch]);
+  useEffect(() => {
     if (session) {
       dispatch(
         restoreUser({
@@ -62,7 +64,7 @@ const Home: NextPage = () => {
         dispatch(restoreUser({ username: guest, userImg: '' }));
       })();
     }
-  }, [dispatch]);
+  }, [dispatch, session]);
 
   return (
     <>
