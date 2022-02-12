@@ -207,7 +207,7 @@ const TypeArea = () => {
   }, [game, correctWords, dispatch, setting.level]);
 
   useEffect(() => {
-    if (game.finished) {
+    if (game.started && game.finished) {
       dispatch(
         addToLeaderBoard({
           username: user.username,
@@ -216,7 +216,7 @@ const TypeArea = () => {
         })
       );
     }
-  }, [game.finished, dispatch, result, user]);
+  }, [game.finished, dispatch]);
 
   return (
     <section className="w-full relative sm:mt-20 mt-12">

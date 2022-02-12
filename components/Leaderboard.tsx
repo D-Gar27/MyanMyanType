@@ -47,8 +47,6 @@ const Leaderboard = () => {
     getLeaderBoard();
   }, []);
 
-  console.log(top);
-
   return (
     <section
       className="mt-20 w-full max-w-[800px] mx-auto rounded-md py-4 lg:mb-0 mb-20"
