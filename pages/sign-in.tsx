@@ -32,7 +32,7 @@ const SignIn = ({ providers }: Props) => {
         <button
           className="text-xl flex items-center gap-4 border-2 rounded-sm border-current py-2 px-8"
           style={{ color: theme.primary }}
-          onClick={() => signIn(providers.google.id, { redirect: true })}
+          onClick={() => signIn(providers?.google?.id, { redirect: true })}
         >
           Sign in with <FcGoogle />
         </button>
